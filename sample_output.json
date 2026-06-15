@@ -1,0 +1,129 @@
+{
+  "_note": "Anonymized sample output (10 records per category). Full dataset not included due to copyright.",
+  "input_stats": {
+    "filename": "shuenjoyu_vol1_clean.txt",
+    "total_lines": 30120,
+    "total_chars": 430457
+  },
+  "paratextual_categories": {
+    "paren_note": {
+      "label": "括号文内注释",
+      "count_unique": 503,
+      "subcategories": {
+        "vocabulary_gloss": 291,
+        "place_admin": 71,
+        "character_role": 39,
+        "historical_era": 16,
+        "food_culture": 12,
+        "long_explanatory": 10,
+        "object_instrument": 9,
+        "other": 55
+      },
+      "sample_matches": [
+        "（臨時収入）", "（ベスト）", "（逆立ち）",
+        "（県庁所在地）", "（鼓師）", "（二枚目役）",
+        "（民国元年）", "（旧暦八月十五日）",
+        "（ブランド品）", "（陝西省秦嶺山中の村）"
+      ]
+    },
+    "fnote_mark": {
+      "label": "脚注式译注",
+      "count_unique": 59,
+      "subcategories": {},
+      "sample_matches": [
+        "（注「四旧」とは旧思想・旧文化・旧風俗・旧習慣を指す）",
+        "（訳注 一九六六年五月に始まったプロレタリア文化大革命は……）",
+        "（注「花雅之争」清代乾隆年間……）",
+        "（注「人民公社」1958年から1984年まで存続した……）",
+        "（注 陝西省では「はだしの医者」と呼ばれた……）",
+        "（注 秦腔で用いられる独特の唱法で……）",
+        "（注「易俗社」1912年西安に創設された……）",
+        "（注「魏长生」清代乾隆年間の秦腔俳優……）",
+        "（注 原作では「購貨本」。計画経済時代の……）",
+        "（注「九岩沟」は架空の地名。秦嶺山中の……）"
+      ]
+    },
+    "biling_arrow": {
+      "label": "双语对照(箭头式)",
+      "count_unique": 89,
+      "subcategories": {
+        "measurement": 17,
+        "place_admin": 15,
+        "opera_art": 12,
+        "food": 10,
+        "character_title": 7,
+        "political_history": 5,
+        "other": 23
+      },
+      "sample_matches": [
+        "一斤→五百グラム", "三十里→十五キロ",
+        "九岩沟→陝西省秦嶺山中の村", "寧州→陝西省の県",
+        "秦腔→陝西省の伝統的地方劇", "板胡→中国の弦楽器",
+        "臊子麺→肉味噌をのせた陝西省の麺料理",
+        "鼓師→太鼓打ち（楽隊の指揮者）",
+        "四旧→旧思想・旧文化・旧風俗・旧習慣",
+        "白専道路→政治より業務優先の路線"
+      ]
+    },
+    "biling_bracket": {
+      "label": "双语对照(括号式)",
+      "count_unique": 162,
+      "subcategories": {
+        "measurement": 0,
+        "place_admin": 14,
+        "opera_art": 10,
+        "food": 6,
+        "character_title": 4,
+        "political_history": 2,
+        "other": 126
+      },
+      "sample_matches": [
+        "黄主任〔ホァンチョンダー〕", "胡彩香〔ホーツァイシアン〕",
+        "憶秦娥〔イーチンオー〕", "廖耀輝〔リャオヤオホイ〕",
+        "米妖精〔ミーラン〕", "狐狸精〔フーリージン〕",
+        "九岩溝〔チュウイエンゴウ〕", "易招弟〔イーヂャオディー〕",
+        "秦腔〔チンチャン〕", "花和尚〔ホァホーション〕"
+      ]
+    },
+    "xref": {
+      "label": "跨页内部参照",
+      "count_unique": 15,
+      "sample_matches": [
+        "上卷五九ページ参照", "上卷一二三ページ参照",
+        "上卷二〇一ページ参照", "上卷四七ページ参照",
+        "上卷八八ページ参照"
+      ]
+    },
+    "illus_credit": {
+      "label": "插图标注",
+      "count_unique": 26,
+      "sample_matches": [
+        "図1 馬河声「憶秦娥牧羊図」",
+        "写真提供：陝西省戏曲研究院",
+        "挿絵：馬河声 作"
+      ]
+    }
+  },
+  "excluded_categories": {
+    "ruby_gloss": {
+      "label": "片假名音注",
+      "count_unique": 1041,
+      "reason": "正文书写体系，非副文本",
+      "note": "イチンオー(易青娥) 重复513次，系译者冗余式标注策略"
+    },
+    "page_marker": {
+      "label": "OCR页码标记",
+      "count_unique": 225,
+      "reason": "文本物质性遗迹，非副文本"
+    }
+  },
+  "totals": {
+    "paratext_total": 866,
+    "fnote_breakdown": {
+      "explicit_訳注": 1,
+      "implicit_注": 58
+    },
+    "translator_added_explanatory": 828,
+    "translator_added_formula": "59 + 503 + 251 + 15 = 828"
+  }
+}

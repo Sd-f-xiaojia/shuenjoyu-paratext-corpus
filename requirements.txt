@@ -1,0 +1,6 @@
+# Python >= 3.9
+# No external dependencies beyond standard library.
+# The regex module (re) and json are part of the Python standard library.
+# If you need to process OCR output, optionally install:
+# tesseract>=5.0 (system package, not pip)
+# pytesseract>=0.3.10 (Python wrapper for Tesseract)
