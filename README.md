@@ -54,7 +54,7 @@ The scan expects a UTF-8 encoded plain-text file that has been:
 
 If you use this code in your research, please cite:
 
-> [Author(s)]. 副文本与深度翻译视角下《主角》日译本的译者阐释体系研究[J]. 中国翻译, [year].
+> [Author(s)]. 副文本与深度翻译视角下《主角》日译本的译者阐释体系研究[J]. 
 
 ## License
 
