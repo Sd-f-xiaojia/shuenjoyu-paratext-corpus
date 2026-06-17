@@ -1,27 +1,43 @@
 """
 Regex patterns for full-text paratext scanning of Shuenjoyu (《主演女優》) Vol. I.
-All patterns are compiled with re.UNICODE | re.DOTALL | re.MULTILINE flags.
+All patterns are compiled with re.UNICODE flags.
+
+Paper data reference (终版):
+  Marked paratext total: 820
+    外副文本: 12 (manually catalogued)
+    脚注式译注: 59 (58注 + 1訳注)
+    括号文内注释: 439
+    双语对照注释: 290 (箭头式3 + 括号式285 + 结构式2)
+    跨页内部参照: 16
+    插图标注: 4
+  Excluded: 片假名音注 669 (イチンオー→易青娥 repeats 792x)
+  Unmarked implicit (via close reading, not regex): 306
+  Combined total: 820 + 306 = 1,126
 """
 
 import re
 
 # ============================================================
-# Category A: Parenthetical Explanations 括号文内注释 (503 found)
+# Category A: Parenthetical Explanations 括号文内注释 (439 found)
 # ============================================================
-# Matches Japanese fullwidth parentheses containing explanatory text
-# embedded in the translation body text.
-# Excludes: ruby gloss markers 〔...〕, pure punctuation enclosures,
-# and OCR artifacts with unmatched brackets.
+# Sub-classification:
+#   词汇对译/简短解释: 328 (74.7%)
+#   地名/行政制度解释: 28 (6.4%)
+#   人物/角色说明: 24 (5.5%)
+#   时代/历史背景: 5 (1.1%)
+#   食物/文化解释: 13 (3.0%)
+#   长文解释性注释: 1 (0.2%)
+#   器物/乐器说明: 13 (3.0%)
+#   其他: 27 (6.2%)
 
 PAREN_NOTE = re.compile(
     r'（'                           # Fullwidth left parenthesis
     r'(?![）\s]{0,2})'             # Not empty/whitespace-only
-    r'[^）]{2,}'                    # Content: 2+ chars (excludes single-char fillers)
+    r'[^）]{2,}'                    # Content: 2+ chars
     r'）',                          # Fullwidth right parenthesis
     re.UNICODE
 )
 
-# Sub-classification patterns for PAREN_NOTE (applied to captured content)
 PAREN_SUBCLASS = {
     'vocabulary_gloss': re.compile(
         r'^[぀-ゟ゠-ヿ一-鿿]{1,8}$'  # Short kana/kanji gloss
@@ -49,8 +65,16 @@ PAREN_SUBCLASS = {
 # ============================================================
 # Category B: Numbered Translator's Notes 脚注式译注 (59 found)
 # ============================================================
-# Matches （注） and （訳注） markers in the text body.
-# These are inline footnote-like references to end-of-section notes.
+# Sub-classification:
+#   政治历史语境注释: 14
+#   秦腔戏曲专业知识注释: 13
+#   古典文学典故注释: 5
+#   民俗文化与社会制度注释: 2
+#   地名/行政制度注释: 9
+#   戏曲史知识注释: 0
+#   其他: 15
+#   Explicit 訳注: 1
+#   Total: 58 + 1 = 59
 
 FNOTE_MARK = re.compile(
     r'（(?:訳)?注'                  # （注） or （訳注）
@@ -59,34 +83,48 @@ FNOTE_MARK = re.compile(
     re.UNICODE
 )
 
-# Distinguish explicit 訳注 from plain 注
 FNOTE_EXPLICIT = re.compile(r'（訳注')
 FNOTE_IMPLICIT = re.compile(r'（注(?!訳)')
 
 # ============================================================
-# Category C: Bilingual Explanatory Pairs 双语对照注释 (251 found)
+# Category C: Bilingual Explanatory Pairs 双语对照注释 (290 found)
 # ============================================================
-# Matches patterns where Chinese original text is juxtaposed with
-# Japanese explanation, typically separated by → or 〔...〕 structure.
+# Composition:
+#   箭头式: 3, 括号式: 285, 结构式: 2
+# Sub-classification:
+#   度量衡单位换算: 14
+#   地名/行政制度: 25
+#   戏曲艺术术语: 52
+#   食物/料理: 12
+#   人物/角色称谓: 24
+#   政治/历史术语: 7
+#   其他: 156
 
-# Pattern C1: Chinese→Japanese (arrow-separated)
+# Pattern C1: Chinese→Japanese (arrow-separated), 3 found
 BILING_ARROW = re.compile(
-    r'[一-鿿㐀-䶿]{1,20}'   # Chinese characters (1-20)
-    r'\s*→\s*'                                # Arrow separator
-    r'[^\n]{2,80}',                           # Japanese explanation
+    r'[一-鿿㐀-䶿]{1,20}'          # Chinese characters (1-20)
+    r'\s*→\s*'                      # Arrow separator
+    r'[^\n]{2,80}',                 # Japanese explanation
     re.UNICODE
 )
 
-# Pattern C2: Chinese〔Japanese reading〕
+# Pattern C2: Chinese〔Japanese reading〕, 285 found
 BILING_BRACKET = re.compile(
-    r'[一-鿿㐀-䶿]{1,20}'   # Chinese original
-    r'\s*〔'                                   # Opening bracket
-    r'[^\n]{1,40}'                            # Japanese gloss
-    r'〕',                                     # Closing bracket
+    r'[一-鿿㐀-䶿]{1,20}'          # Chinese original
+    r'\s*〔'                         # Opening bracket
+    r'[^\n]{1,40}'                  # Japanese gloss
+    r'〕',                           # Closing bracket
     re.UNICODE
 )
 
-# Sub-classification patterns
+# Pattern C3: Structural bilingual (inline apposition without brackets), 2 found
+BILING_STRUCTURAL = re.compile(
+    r'[一-鿿]{2,10}'                # Chinese term
+    r'(?:とは|は|という|といい|と呼ばれる|のことで)'
+    r'[^\n]{5,60}',                 # Japanese explanation
+    re.UNICODE
+)
+
 BILING_SUBCLASS = {
     'measurement': re.compile(
         r'(グラム|キロ|メートル|センチ|リットル|斤|里|尺|寸|畝|頃|石|斗)'
@@ -109,7 +147,7 @@ BILING_SUBCLASS = {
 }
 
 # ============================================================
-# Category D: Internal Cross-References 跨页内部参照 (15 found)
+# Category D: Internal Cross-References 跨页内部参照 (16 found)
 # ============================================================
 
 XREF = re.compile(
@@ -122,11 +160,11 @@ XREF = re.compile(
 )
 
 # ============================================================
-# Category E: Ruby/Furigana Glosses 片假名音注 (1,041 found, EXCLUDED)
+# Category E: Ruby/Furigana Glosses 片假名音注 (669 found, EXCLUDED)
 # ============================================================
-# Matches Japanese ruby phonetic annotations in 〔...〕 brackets.
-# These are classified as part of the Japanese writing system,
-# NOT as paratext under Genette's definition.
+# イチンオー→易青娥 repeats 792 times.
+# EXCLUDED under Genette's strict definition: ruby is part of
+# the Japanese writing system, not paratext.
 
 RUBY_GLOSS = re.compile(
     r'〔'                            # Opening ruby bracket
@@ -136,26 +174,23 @@ RUBY_GLOSS = re.compile(
 )
 
 # ============================================================
-# Category F: OCR Page-Number Markers 页码标记 (225 found, EXCLUDED)
+# Category F: OCR Page-Number Markers (EXCLUDED)
 # ============================================================
-# Matches residual page-number artifacts from OCR processing.
-# These are material traces of digitization, not paratext.
 
 PAGE_MARKER = re.compile(
-    r'^\s*\d{1,4}\s*$',             # Standalone numbers (potential page markers)
+    r'^\s*\d{1,4}\s*$',             # Standalone numbers
     re.MULTILINE
 )
 
-# Refined: page markers embedded in body text
 PAGE_MARKER_INLINE = re.compile(
-    r'(?:［|\[)\s*\d{1,4}\s*(?:］|\])'  # [123] or ［123］
+    r'(?:［|\[)\s*\d{1,4}\s*(?:］|\])'
     r'|'
-    r'^\s*[-–—]+\s*\d{1,4}\s*[-–—]+\s*$',  # --- 123 ---
+    r'^\s*[-–—]+\s*\d{1,4}\s*[-–—]+\s*$',
     re.MULTILINE | re.UNICODE
 )
 
 # ============================================================
-# Category G: Illustration Credits 插图标注 (26 found)
+# Category G: Illustration Credits 插图标注 (4 found)
 # ============================================================
 
 ILLUS_CREDIT = re.compile(
@@ -170,9 +205,9 @@ ILLUS_CREDIT = re.compile(
 # ============================================================
 
 OCR_ARTIFACT = re.compile(
-    r'[■□◆◇△▲▼▽●○★☆]+'        # Decoration characters
+    r'[■□◆◇△▲▼▽●○★☆]+'
     r'|'
-    r'[\x00-\x08\x0b\x0c\x0e-\x1f]',  # Control characters
+    r'[\x00-\x08\x0b\x0c\x0e-\x1f]',
     re.UNICODE
 )
 
@@ -182,21 +217,23 @@ OCR_ARTIFACT = re.compile(
 
 PATTERN_REGISTRY = {
     # Paratextual categories (included in count)
-    'paren_note':        ('括号文内注释', PAREN_NOTE, True),
-    'fnote_mark':        ('脚注式译注', FNOTE_MARK, True),
-    'biling_arrow':      ('双语对照(箭头式)', BILING_ARROW, True),
-    'biling_bracket':    ('双语对照(括号式)', BILING_BRACKET, True),
-    'xref':              ('跨页内部参照', XREF, True),
-    'illus_credit':      ('插图标注', ILLUS_CREDIT, True),
+    'paren_note':         ('括号文内注释', PAREN_NOTE, True),
+    'fnote_mark':         ('脚注式译注', FNOTE_MARK, True),
+    'biling_arrow':       ('双语对照(箭头式)', BILING_ARROW, True),
+    'biling_bracket':     ('双语对照(括号式)', BILING_BRACKET, True),
+    'biling_structural':  ('双语对照(结构式)', BILING_STRUCTURAL, True),
+    'xref':               ('跨页内部参照', XREF, True),
+    'illus_credit':       ('插图标注', ILLUS_CREDIT, True),
 
     # Excluded from paratext count
-    'ruby_gloss':        ('片假名音注', RUBY_GLOSS, False),
-    'page_marker':       ('OCR页码标记', PAGE_MARKER, False),
-    'page_marker_inline':('OCR页码标记(行内)', PAGE_MARKER_INLINE, False),
+    'ruby_gloss':         ('片假名音注', RUBY_GLOSS, False),
+    'page_marker':        ('OCR页码标记', PAGE_MARKER, False),
+    'page_marker_inline': ('OCR页码标记(行内)', PAGE_MARKER_INLINE, False),
 }
 
 SUBCLASS_REGISTRY = {
     'paren_note': PAREN_SUBCLASS,
     'biling_arrow': BILING_SUBCLASS,
     'biling_bracket': BILING_SUBCLASS,
+    'biling_structural': BILING_SUBCLASS,
 }
