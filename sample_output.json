@@ -1,23 +1,23 @@
 {
-  "_note": "Anonymized sample output (10 records per category). Full dataset not included due to copyright.",
+  "_note": "Anonymized sample output (10 records per category). Full dataset not included due to copyright. Data reflects final paper statistics (终版).",
   "input_stats": {
     "filename": "shuenjoyu_vol1_clean.txt",
-    "total_lines": 30120,
-    "total_chars": 430457
+    "total_lines": 12460,
+    "total_chars": 411511
   },
   "paratextual_categories": {
     "paren_note": {
       "label": "括号文内注释",
-      "count_unique": 503,
+      "count_unique": 439,
       "subcategories": {
-        "vocabulary_gloss": 291,
-        "place_admin": 71,
-        "character_role": 39,
-        "historical_era": 16,
-        "food_culture": 12,
-        "long_explanatory": 10,
-        "object_instrument": 9,
-        "other": 55
+        "vocabulary_gloss": 328,
+        "place_admin": 28,
+        "character_role": 24,
+        "historical_era": 5,
+        "food_culture": 13,
+        "long_explanatory": 1,
+        "object_instrument": 13,
+        "other": 27
       },
       "sample_matches": [
         "（臨時収入）", "（ベスト）", "（逆立ち）",
@@ -29,7 +29,17 @@
     "fnote_mark": {
       "label": "脚注式译注",
       "count_unique": 59,
-      "subcategories": {},
+      "subcategories": {
+        "political_history": 14,
+        "opera_expertise": 13,
+        "classical_allusion": 5,
+        "folk_culture": 2,
+        "place_admin": 9,
+        "opera_history": 0,
+        "other": 15,
+        "explicit_訳注": 1
+      },
+      "note": "58处用（注）+ 1处用（訳注）。訳注用于文革起止时间这一历史争议性话题。",
       "sample_matches": [
         "（注「四旧」とは旧思想・旧文化・旧風俗・旧習慣を指す）",
         "（訳注 一九六六年五月に始まったプロレタリア文化大革命は……）",
@@ -45,37 +55,33 @@
     },
     "biling_arrow": {
       "label": "双语对照(箭头式)",
-      "count_unique": 89,
+      "count_unique": 3,
       "subcategories": {
-        "measurement": 17,
-        "place_admin": 15,
-        "opera_art": 12,
-        "food": 10,
-        "character_title": 7,
-        "political_history": 5,
-        "other": 23
+        "measurement": 0,
+        "place_admin": 0,
+        "opera_art": 1,
+        "food": 0,
+        "character_title": 0,
+        "political_history": 0,
+        "other": 2
       },
       "sample_matches": [
-        "一斤→五百グラム", "三十里→十五キロ",
-        "九岩沟→陝西省秦嶺山中の村", "寧州→陝西省の県",
-        "秦腔→陝西省の伝統的地方劇", "板胡→中国の弦楽器",
-        "臊子麺→肉味噌をのせた陝西省の麺料理",
-        "鼓師→太鼓打ち（楽隊の指揮者）",
-        "四旧→旧思想・旧文化・旧風俗・旧習慣",
-        "白専道路→政治より業務優先の路線"
+        "秦腔→陝西省の伝統的地方劇",
+        "板胡→中国の弦楽器",
+        "臊子麺→肉味噌をのせた陝西省の麺料理"
       ]
     },
     "biling_bracket": {
       "label": "双语对照(括号式)",
-      "count_unique": 162,
+      "count_unique": 285,
       "subcategories": {
-        "measurement": 0,
-        "place_admin": 14,
-        "opera_art": 10,
-        "food": 6,
-        "character_title": 4,
-        "political_history": 2,
-        "other": 126
+        "measurement": 14,
+        "place_admin": 25,
+        "opera_art": 51,
+        "food": 12,
+        "character_title": 24,
+        "political_history": 7,
+        "other": 152
       },
       "sample_matches": [
         "黄主任〔ホァンチョンダー〕", "胡彩香〔ホーツァイシアン〕",
@@ -85,9 +91,17 @@
         "秦腔〔チンチャン〕", "花和尚〔ホァホーション〕"
       ]
     },
+    "biling_structural": {
+      "label": "双语对照(结构式)",
+      "count_unique": 2,
+      "note": "Inline apposition without explicit brackets, e.g. 'XとはY' patterns",
+      "sample_matches": [
+        "（结构式嵌入，无括号标记）"
+      ]
+    },
     "xref": {
       "label": "跨页内部参照",
-      "count_unique": 15,
+      "count_unique": 16,
       "sample_matches": [
         "上卷五九ページ参照", "上卷一二三ページ参照",
         "上卷二〇一ページ参照", "上卷四七ページ参照",
@@ -96,34 +110,75 @@
     },
     "illus_credit": {
       "label": "插图标注",
-      "count_unique": 26,
+      "count_unique": 4,
       "sample_matches": [
         "図1 馬河声「憶秦娥牧羊図」",
-        "写真提供：陝西省戏曲研究院",
-        "挿絵：馬河声 作"
+        "写真提供：陝西省戏曲研究院"
+      ]
+    },
+    "ext_paratext": {
+      "label": "外副文本",
+      "count_unique": 12,
+      "note": "Manually catalogued: cover, illustrations, author preface, acknowledgments, TOC, colophon, author/translator bios, etc.",
+      "sample_matches": [
+        "书封与装帧（竖排印刷、和装风格）",
+        "卷首插画（马河声「忆秦娥牧羊图」）",
+        "作者寄语《秦腔は命の叫び》",
+        "作者谢辞",
+        "卷首目录",
+        "版权页",
+        "作者介绍",
+        "译者介绍"
       ]
     }
   },
   "excluded_categories": {
     "ruby_gloss": {
       "label": "片假名音注",
-      "count_unique": 1041,
-      "reason": "正文书写体系，非副文本",
-      "note": "イチンオー(易青娥) 重复513次，系译者冗余式标注策略"
+      "count_unique": 669,
+      "reason": "正文书写体系，非副文本（依据热奈特严格定义）。国际翻译研究中鲜有将拼音/ルビ视为副文本的先例。",
+      "note": "イチンオー→易青娥 在全书中重复792次，反映译者对目标读者认知需求的系统性预估。该策略应置于'译者的正文书写策略'框架下独立考察。"
     },
     "page_marker": {
       "label": "OCR页码标记",
-      "count_unique": 225,
-      "reason": "文本物质性遗迹，非副文本"
+      "count_unique": "（排除，不计入统计）",
+      "reason": "文本数字化过程的物质性遗迹，非副文本"
     }
   },
+  "unmarked_implicit": {
+    "_note": "以下306处无标记隐性阐释由AI辅助双语对照细读发现，非正则扫描所能识别。详见论文5.3节。",
+    "label": "无标记隐性阐释性增补",
+    "count_total": 306,
+    "by_function": {
+      "SEM_语义扩展": 160,
+      "INF_信息增量": 107,
+      "SYN_结构嵌入": 22,
+      "ANA_文化类比": 17
+    },
+    "by_domain": {
+      "SOC_社会制度": 193,
+      "CHAR_人物角色": 35,
+      "OP_秦腔戏曲": 28,
+      "HIST_政治历史": 22,
+      "LIT_文学艺术": 17,
+      "GEO_地名行政": 8,
+      "FOOD_食物习俗": 3
+    },
+    "method": "两轮系统性扫描：第一轮识别68处候选，第二轮逐句复核补充，经去重后全部通过人工核验。"
+  },
   "totals": {
-    "paratext_total": 866,
+    "marked_paratext": 820,
+    "marked_formula": "12 + 59 + 439 + 290 + 16 + 4 = 820",
+    "translator_explanatory": 804,
+    "explanatory_formula": "59 + 439 + 290 + 16 = 804",
+    "implicit_additions": 306,
+    "combined_total": 1126,
+    "implicit_ratio": "92.7% (745/804) 有标记阐释为隐性（不加訳注标识）",
     "fnote_breakdown": {
       "explicit_訳注": 1,
       "implicit_注": 58
     },
-    "translator_added_explanatory": 828,
-    "translator_added_formula": "59 + 503 + 251 + 15 = 828"
+    "ruby_gloss_excluded": 669,
+    "ruby_repeat_note": "イチンオー→易青娥 在全书重复792次"
   }
 }
