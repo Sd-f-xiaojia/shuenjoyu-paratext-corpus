@@ -4,12 +4,11 @@ Companion code repository for the paper **"副文本与深度翻译视角下《�
 
 ## Overview
 
-This repository contains the full-text regex scanning pipeline used to identify and classify 866 paratextual phenomena across 30,120 lines of the Japanese translation *Shuenjoyu* (《主演女優》, Vol. I). The scan covers 430,457 characters and identifies six categories of paratext as defined under Genette's (1997) framework.
+This repository contains the full-text regex scanning pipeline used to identify and classify 820 marked paratextual phenomena across 12,460 lines of the Japanese translation *Shuenjoyu* (《主演女優》, Vol. I). The scan covers 411,511 characters and identifies six categories of marked paratext as defined under Genette's (1997) framework. An additional 306 unmarked implicit paratextual additions were identified through AI-assisted bilingual close reading (not part of the regex pipeline), bringing the total paratextual/interpreting phenomena to 1,126.
 
 ## File Structure
 
 ```
-regex-corpus/
 ├── README.md                  # This file
 ├── regex_patterns.py          # Compiled regex patterns for all paratext types
 ├── scan_pipeline.py           # End-to-end scanning, dedup, and classification pipeline
@@ -21,14 +20,30 @@ regex-corpus/
 
 | Category | Pattern ID | Count | Description |
 |----------|-----------|-------|-------------|
-| Parenthetical explanations | `PAREN_NOTE` | 503 | Inline notes embedded in `（ ）` within the text body |
-| Numbered translator's notes | `FNOTE_MARK` | 59 | Footnote-style notes marked with `（注）` or `（訳注）` |
-| Bilingual explanatory pairs | `BILING_PAIR` | 251 | Chinese original + Japanese explanation (e.g., `九岩沟→陝西省秦嶺山中の村`) |
-| Internal cross-references | `XREF` | 15 | Cross-page references (e.g., `上卷五九ページ参照`) |
-| Illustration credits | `ILLUS_CREDIT` | 26 | Image/illustration source annotations |
+| Parenthetical explanations | `PAREN_NOTE` | 439 | Inline notes embedded in `（ ）` within the text body |
+| Numbered translator's notes | `FNOTE_MARK` | 59 | Footnote-style notes marked with `（注）` (58) or `（訳注）` (1) |
+| Bilingual explanatory pairs | `BILING_PAIR` | 290 | Chinese original + Japanese explanation (arrow: 3, bracket: 285, structural: 2) |
+| Internal cross-references | `XREF` | 16 | Cross-page references (e.g., `上卷五九ページ参照`) |
+| Illustration credits | `ILLUS_CREDIT` | 4 | Image/illustration source annotations |
 | External paratext items | `EXT_PARATEXT` | 12 | Cover, preface, author message, colophon, etc. (manually catalogued) |
+| **Marked paratext total** | | **820** | 12 + 59 + 439 + 290 + 16 + 4 |
 
-Additionally, 1,041 ruby (*furigana*) glosses were identified (pattern `RUBY_GLOSS`) but excluded from the paratextual count per Genette's strict definition.
+Additionally, 669 ruby (*furigana*) glosses were identified (pattern `RUBY_GLOSS`) but excluded from the paratextual count per Genette's strict definition. The gloss `イチンオー→易青娥` repeats 792 times across the volume, reflecting the translator's systematic redundancy strategy.
+
+## Beyond Regex: Unmarked Implicit Additions
+
+The regex scan captures only formally marked paratext. Through AI-assisted bilingual close reading of all 12,460 lines, an additional **306 unmarked implicit paratextual additions** were identified, classified into four types:
+
+| Type | Code | Count | % |
+|------|------|-------|---|
+| Semantic Extension | SEM | 160 | 52.3% |
+| Information Increment | INF | 107 | 35.0% |
+| Structural Embedding | SYN | 22 | 7.2% |
+| Cultural Analogy | ANA | 17 | 5.6% |
+
+These fully embedded additions have no formal markers and are invisible to regex scanning — they constitute a "deep paratext" layer only detectable through systematic bilingual close reading.
+
+**Combined total: 820 (marked) + 306 (unmarked) = 1,126 paratextual/interpreting phenomena.**
 
 ## Usage
 
@@ -54,7 +69,7 @@ The scan expects a UTF-8 encoded plain-text file that has been:
 
 If you use this code in your research, please cite:
 
-> [Author(s)]. 副文本与深度翻译视角下《主角》日译本的译者阐释体系研究[J]. 
+> 孙凡. 副文本与深度翻译视角下《主角》日译本的译者阐释体系研究[D]. 兰州: 兰州理工大学, 2026.
 
 ## License
 
